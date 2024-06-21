@@ -209,7 +209,29 @@ public function hospitalDoctorSignUp(Request $request)
         }
 
 
+        public function deactivate($id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found.'
+            ], 404);
+        }
+
+        // Set the status to 0
+        $user->status = 0;
+        $user->save();
+
+        return response()->json([
+            'message' => 'User deactivated successfully.'
+        ], 200);
+    }
 }
+
+
+
 	// $user = new User;
 		        // $user->name = $request->name;
 		        // $user->email = $request->email;
@@ -219,3 +241,5 @@ public function hospitalDoctorSignUp(Request $request)
 		        // $user->city = $request->city;
 		        // $user->address = $request->address;
 		        // $user->save();
+
+                

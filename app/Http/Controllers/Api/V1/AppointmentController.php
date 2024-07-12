@@ -521,54 +521,98 @@ class AppointmentController extends Controller
 
         // patient profile update 
 
-        public function patientProfileUpdate(Request $request)
-    {
-        {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',  
-                'number'=>'required',
-                'dob'=>'required',
-                'email'=>'required|unique:users',
+    //     public function patientProfileUpdate(Request $request)
+    // {
+    //     {
+    //         $validator = Validator::make($request->all(), [
+    //             'name' => 'required',  
+    //             'number'=>'required',
+    //             'dob'=>'required',
+    //             'email'=>'required|unique:users',
 
-            ]);
+    //         ]);
 
-        if ($validator->fails()) {   
-            return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
-        } 
+    //     if ($validator->fails()) {   
+    //         return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+    //     } 
         
-        try{
-            $userData = User::where('id',Auth::user()->id)->first();
+    //     try{
+    //         $userData = User::where('id',Auth::user()->id)->first();
+    //         $path = 'uploads/patient';
+    //         $oldLogo = '';
+    //         $data = [
+    //             'name' => $request->name ?? '',
+    //             // 'number' => $request->number ?? '',
+    //             'sex' => $request->gender ?? '',
+    //             'address' => $request->address ?? '',
+    //             'dob' => $request->dob ?? '',
+    //             'email' => $request->email ?? '',
+
+    //             'is_profile' => true,
+    //         ];
+            
+    //         if(!empty($request->profile_image)){
+               
+    //             $data['profile_image'] = $this->uploadDocuments($request->file('profile_image'), $path) ;
+    //         }
+    //         $employee = User::updateOrCreate(['id' => $userData->id], $data);
+
+    //         return ResponseBuilder::successMessage('Patient Profile Update Successfully!',  $this->success);
+
+    // }    
+    // catch (\Exception $e) 
+    // {
+    //     return $e;
+    //     return ResponseBuilder::error(__($e->getMessage()), $this->serverError);
+    // }
+    //     }
+    // }
+    public function patientProfileUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'number' => 'required',
+            'dob' => 'required',
+            'email' => 'required|unique:users',
+        ]);
+    
+        if ($validator->fails()) {
+            return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+        }
+    
+        try {
+            $userData = User::where('id', Auth::user()->id)->first();
             $path = 'uploads/patient';
-            $oldLogo = '';
             $data = [
                 'name' => $request->name ?? '',
-                // 'number' => $request->number ?? '',
                 'sex' => $request->gender ?? '',
                 'address' => $request->address ?? '',
                 'dob' => $request->dob ?? '',
                 'email' => $request->email ?? '',
-
                 'is_profile' => true,
             ];
-            
-            if(!empty($request->profile_image)){
-               
-                $data['profile_image'] = $this->uploadDocuments($request->file('profile_image'), $path) ;
+    
+            if ($request->hasFile('profile_image')) {
+                $data['profile_image'] = $this->uploadDocuments($request->file('profile_image'), $path);
             }
+    
             $employee = User::updateOrCreate(['id' => $userData->id], $data);
-
-            return ResponseBuilder::successMessage('Patient Profile Update Successfully!',  $this->success);
-
-    }    
-    catch (\Exception $e) 
-    {
-        return $e;
-        return ResponseBuilder::error(__($e->getMessage()), $this->serverError);
-    }
+    
+            return ResponseBuilder::successMessage('Patient Profile Updated Successfully!', $this->success);
+        } catch (\Exception $e) {
+            return ResponseBuilder::error(__($e->getMessage()), $this->serverError);
         }
     }
-
-
+    
+    public function uploadDocuments($file, $path)
+    {
+        $filename = time() . '-' . $file->getClientOriginalName();
+        $filepath = $file->storeAs($path, $filename, 's3');
+        Storage::disk('s3')->setVisibility($filepath, 'public');
+        return Storage::disk('s3')->url($filepath);
+    }
+    
+    
     // hospital profile update api
 
     public function hospitalProfileUpdate(Request $request)

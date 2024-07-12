@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "aws/aws-sdk-php": "^3.316",
         "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
@@ -16,6 +17,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "league/flysystem-aws-s3-v3": "~3.0",
         "league/omnipay": "^3.2",
         "omnipay/paypal": "^3.0",
         "salmanzafar/laravel-geocode": "^1.0",

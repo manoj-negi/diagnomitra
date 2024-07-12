@@ -16,19 +16,19 @@ class ApiController extends Controller
 
             $blogs = [
                 [
-                    'title' => 'Understanding Male Infertility: Symptoms, Remedies, and Next Steps',
-                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/02/MI.png',
-                    'url' => 'https://diagnomitra.com/understanding-male-infertility-symptoms-remedies-and-next-steps/'
+                    'title' => 'The Impact of Mental Health Awareness in the Workplace',
+                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/06/2404261825420411d755-e1718692824640.webp',
+                    'url' => 'https://diagnomitra.com/the-impact-of-mental-health-awareness-in-the-workplace/'
                 ],
                 [
-                    'title' => 'Understanding STDs: Symptoms, Remedies, and Precautions',
-                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/02/STDS.png',
-                    'url' => 'https://diagnomitra.com/understanding-stds-symptoms-remedies-and-precautions/'
+                    'title' => 'Work-Life Balance: Myth or Reality?',
+                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/06/2404261825451107d755.webp',
+                    'url' => 'https://diagnomitra.com/work-life-balance-myth-or-reality/'
                 ],
                 [
-                    'title' => 'Understanding PCOS/PCOD: Symptoms, Home Remedies, and Lifestyle Management',
-                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/02/PCOD.png',
-                    'url' => 'https://diagnomitra.com/understanding-pcos-pcod-symptoms-home-remedies-and-lifestyle-management/'
+                    'title' => 'Should Health Insurance Be Mandatory for All',
+                    'image_url' => 'https://diagnomitra.com/wp-content/uploads/2024/06/2404261825420411d755-e1718692824640.webp',
+                    'url' => 'https://diagnomitra.com/should-health-insurance-be-mandatory-for-all/'
                 ]
             ];
             $this->response->blog_data = $blogs;

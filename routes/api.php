@@ -37,7 +37,8 @@ Route::POST('geo-location', [App\Http\Controllers\Api\V1\SearchingController::cl
 Route::post('hospital-sign-up', [App\Http\Controllers\Api\V1\AuthController::class, 'hospitalSignUp']);
 // Route::post('geo-location', [App\Http\Controllers\Api\V1\AuthController::class, 'geoLocation']);
 Route::post('patient-register', [App\Http\Controllers\Api\V1\AuthController::class, 'patientSignUp']);
-Route::put('user-deactivate/{id}', [App\Http\Controllers\Api\V1\AuthController::class, 'deactivate']);
+// Route::put('user-deactivate/{id}', [App\Http\Controllers\Api\V1\AuthController::class, 'deactivate']);
+Route::middleware('auth:api')->post('/deactivate', [App\Http\Controllers\Api\V1\AuthController::class, 'deactivate']);
 
 Route::post('hospital-doctor-sign-up', [App\Http\Controllers\Api\V1\AuthController::class, 'hospitalDoctorSignUp']);
 Route::get('member', [App\Http\Controllers\Api\V1\AppointmentController::class, 'member']);

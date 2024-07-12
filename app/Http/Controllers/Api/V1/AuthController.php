@@ -209,25 +209,26 @@ public function hospitalDoctorSignUp(Request $request)
         }
 
 
-        public function deactivate($id)
-    {
-        // Find the user by ID
-        $user = User::find($id);
-
-        if (!$user) {
+        public function deactivate(Request $request)
+        {
+            // Get the authenticated user using Laravel Passport
+            $user = $request->user();
+        
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not authenticated.'
+                ], 401);
+            }
+        
+            // Set the status to 0
+            $user->status = 0;
+            $user->save();
+        
             return response()->json([
-                'message' => 'User not found.'
-            ], 404);
+                'message' => 'User deactivated successfully.'
+            ], 200);
         }
-
-        // Set the status to 0
-        $user->status = 0;
-        $user->save();
-
-        return response()->json([
-            'message' => 'User deactivated successfully.'
-        ], 200);
-    }
+        
 }
 
 

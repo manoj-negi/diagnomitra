@@ -44,11 +44,11 @@ use App\Http\Controllers\MailTemplateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CityController;
-use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OffersController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\RadioLogyController;
 use App\Http\Controllers\WalletController;
-
+use App\Http\Controllers\Admin\BlogPostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,7 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::GET('lab-tests/{id}', 'LabTestController@updatestatuss')->name('lab-tests');
     Route::get('lab-tests/{id}', [LabTestController::class, 'updatestatuss']);
     Route::resource('sliders', SliderController::class);
-    Route::resource('offers', OfferController::class);
+    Route::resource('offer', OffersController::class);
     Route::resource('promo', PromoController::class);
     Route::resource('patient-report', PatientReportController::class);
     Route::resource('lab-register', LabRegisterController::class);
@@ -158,6 +158,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('type-of-consultations', TypeOfConsultationController::class);
     Route::resource('hospital-doctors', HospitalDoctorController::class);
+   
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::resource('blogposts', BlogPostController::class);
+});
+Route::post('/admin/blogposts/toggle-status', [BlogPostController::class, 'toggleStatus'])->name('admin.blogposts.toggleStatus');
 
 });
 

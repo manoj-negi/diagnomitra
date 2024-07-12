@@ -242,6 +242,13 @@
         <div data-i18n="Test">Bookings</div>
       </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/blogposts*') ? 'active' : '' }}">
+    <a class="menu-link" href="{{ route('admin.blogposts.index') }}">
+        <i class="menu-icon tf-icons bx bx-calendar"></i>
+        <div data-i18n="Test">Blogs</div>
+    </a>
+</li>
+
     <li
       class="menu-item {{request()->segment(1)=='ratingreviews'?'active':''}}"
     >
@@ -306,10 +313,11 @@
       </a>
     </li>
 
+   
     <li class="menu-item {{request()->segment('1')=='offers'?'active':''}}">
-      <a class="menu-link" href="{{ route('offers.index') }}">
+      <a class="menu-link" href="{{ route('offer.index') }}">
         <i class="menu-icon tf-icons bx bxs-discount"></i>
-        <div data-i18n="Test">Offers</div>
+        <div data-i18n="Test">Offer</div>
       </a>
     </li>
 
